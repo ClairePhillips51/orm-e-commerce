@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productData = await Product.findAll({
+      // JOIN with Category and Tag (using ProductTag)
       include: [{model: Category}, {model: Tag, through: ProductTag, as: "product_tags"}],
     });
     res.status(200).json(productData);
@@ -23,7 +24,7 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productData = await Product.findByPk(req.params.id, {
-      // JOIN with Category and Tag
+      // JOIN with Category and Tag (using ProductTag)
       include: [{model: Category}, {model: Tag, through: ProductTag, as: "product_tags"}],
     });
 
