@@ -1,17 +1,10 @@
 # Object Relational Mapping- E-Commerce Back End
 
 ## Links
-Link to walkthrough video [Video Link](https://drive.google.com/file/d/1d6P9nFZTJyfAEws1y9G8UdExHvlYrN_L/view)
-
-What the command line application looks like. 
-Part one: ![What the generated command line application look like picture one](pictures/Finished-1.png)
-
-Part two: ![What the generated command line application look like picture two](pictures/finished-2.png)
-
-Part three: ![What the generated command line application look like picture three](pictures/finished-3.png)
+Link to walkthrough video [Video Link](https://drive.google.com/file/d/1zZJ4myCeQ0WKwZWJmH4tT5EXXnKHsDwM/view?usp=sharing)
 
 ## Summary
-Builiding the back end server for an e-commerce website using a combinaition of express.js, and sequelize.
+Built the back-end server for an e-commerce website using a combination of express.js and sequelize. Using Insomnia to show the functionality of the application as shown in the video linked above. The main purpose of this project was to use ORM (Object Relational Mapping) which is the concept and practice of writing queries like the ones from MySQL databases with javascipt or any other object oriented programming language. 
 
 ## Table of Contents
 1. [Usage](#usage)
@@ -20,39 +13,41 @@ Builiding the back end server for an e-commerce website using a combinaition of 
 4. [Resources](#resources)
 
 ## Usage
-Using a combination of node, inquirer, and MySQL to create a database that will run various CRUD operations to manage a company's employees and departments. MySQL workbench was used to create the database and three tables that are stored in it. 
+Once the database has been created and seeded the server is then launched using "npm run start" from the command line. This commands starts the server and from there you can run RESTful CRUD operations through Insomnia to test or mock the back-end server operations of the e-commerce website. Operations are run on three of the models (categories, products, and tags). The Get operator will pull up and display in formatted JSON all the table information that was defined in the model. 
 
-![MySQL workbench database](pictures/mysql-workbench.png)
+The Post method is used to create a new category, product, or tag. Put will update any on the items from the models, and Delete will delete a certain JSON object based on the model and the id the user passes into the url.
 
-The application is run using the command line where inquirier will guide the user through a series of prompts depending on what the user wants to do. Choosing the view prompt will bring up a table displaying the information. 
+A sample of what some of the operations look like. 
+Get Route: ![Picture one of the Get Api](pictures/get-categories.png)
 
-## Set Up
-This application is a fully functioning back end server and database. The server is set up using node, and the database is built using MySQL. Npm console.tables was used to give the displayed data a more readable format in the command line. 
+Post Route: ![Picture two of the Post Api](pictures/post-tags.png)
 
-A source folder also holds the crud.js file which is a class that contains all the base/helper functions that were called in the main server file. The create, read, update, delete, and join base functions are used in the server.js file and taliored to the particular inquirer prompt.
+Put Route: ![Picture three of the Put Api](pictures/Put-products.png)
 
-![crud.js file first](pictures/crud-1.png)
+Delete Route: ![picture four of the Delete Api](pictures/Delete-tags.png)
 
-![crud.js file second](pictures/crud-2.png)
+## Setup
+This application is just the back-end server and database part of the e-commerce website. The server is set up using express, and sequelize is used to make the adding and maipulating of the database easier. 
 
-The appropraite crud operation is called depending on the prompt. If the user chosses to view a department, role, or employee then the read operation is called and in the case of the "View Role" and "View Employee" the join method is also called.
-For adding a role or an employee the create method is used. To update an employee's role the update method is called. Lastly, to delete a department, role, or employee the delete method is called. 
+The dotenv package was added to use environment variables to store sensitve data in a .env file with the database name, the username, and password. The inital setup of the database was done in MySQL Workbench as usual. After initializing the database it was seeded using "npm run seed" in the command line. 
 
-The server.js file holds the main functionality of the command line application and is tied to an asynchronous funtion named main. Within main is the first prompt that displays all the options (i.e. "View Employee", "Update Role', "Add Department", ect.). A switch statment is used to run through the various options and run the appropriate prompt according to what the user choose in the first prompt. After the secondary prompt is completed you are returned to the main prompt again. Once you have the database set up how you want choosing finish will exit the application and end the connection. 
+There are four models: category, products, product-tags, and tag. The index file sets up the associations between the different models. Category to Product is a one to many association and Product to Tag is a many to many association. The models are the tables that would be set up in MySQL workbench but can be typed out as javascript using sequelize. 
 
-![finished prompt](pictures/done.png)
+![Index.js model associations](pictures/associations.png)
+
+The other main part of the application is the API routes. There are five files that setup the APIs used to interact with the models. The index.js file in the routes folder creates the router. The index.js file in the api folder is like the table of contents that sets up all the connections of the other API routes. The route files are where the CRUD operations are used. The Get API is associated with the find method (either findAll or findByPk), POST API is linked to the create method, PUT is update, and DELETE is linked to the destroy method.
+
+![Routes example one](pictures/routes-1.png)
+
+![Routes example two](pictures/rutes-2.png)
+
+These operations are mocked or tested in Insomnia to show their functionality. To watch how they work view the video which is linked at the beginning of this README. 
 
 ## What I Learned
-There were a number of challenges with this application. It felt as though every step was met with an error that had to be fixed before the application would move forward. The table joins gave me the most trouble. In the end I was able to get most of the information from the employee table to match up with the employee role and department tables. The one problem I had was getting the manager's ID to show their name instead of just the id number when calling the view employee table. Any time a "view" is called (i.e "View Employees") is when a join was employed.  
-
-![Join being used in the server.js file](pictures/join-used.png)
-
-Another challenge that took a lot of time to work through was getting the asynchronous function in the server.js file to work. I ended up having to recall the function "main" after every prompt to get the command line to continue without overriding the ouputted table. 
-
-![Async main functions](pictures/bring-me-back.png)
+Sequelize was very helpful in setting up the database and writing the functionality for the routes. Ansynchronous functions used in the routes files were much easier to get working than those in the employee-tracker-sql.
 
 ## Resources
-* [Npm MySQL2](hhttps://www.npmjs.com/package/mysql2)
+* [Npm MySQL2](https://www.npmjs.com/package/mysql2)
 * [Npm Sequelize](https://sequelize.org/master/)
 * [Npm dotenv](https://www.npmjs.com/package/dotenv)
 * [Sequelize Validation and Constraints](https://sequelize.org/master/manual/validations-and-constraints.html) 
